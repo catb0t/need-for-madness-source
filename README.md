@@ -9,9 +9,14 @@ Decompiled by [Procyon](https://bitbucket.org/mstrobel/procyon) and its [Luyten]
 
 There's no actual copyright on the website, in the game, or in strings in the code, but this code obviously belongs to Omar Waly, and is posted here for purposes of research only.
 
-You may read, compile, execute, and use / link against the code for noncommercial personal or open source purposes.
+You might read, compile, execute, and use / link against the code for noncommercial personal open source purposes.
 
 I do not endorse or want use of this code for commercial purposes, and you really shouldn't do it.
+
+## Scripts
+
+- `build.sh`: reads `$JDKPATH` or uses system javac / jar if unset; script arguments go to javac
+- `run.sh`: reads `$JREPATH` or uses system java if unset
 
 ## Branches
 

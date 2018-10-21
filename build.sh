@@ -5,4 +5,4 @@ echo "JREPATH=$JREPATH"
 echo
 $(printf "%s%s%s" "$JDKPATH" "$(test -z "$JDKPATH" || echo /)" javac) "$@" -d BUILD $(find . -name "*.java")
 cd BUILD || exit
-$(printf "%s%s%s" "$JDKPATH" "$(test -z "$JDKPATH" || echo /)" jar) cmvf ../MANIFEST.MF ../OBJ/Game.jar $(find . -iname "*.class") >/dev/null
+$(printf "%s%s%s" "$JDKPATH" "$(test -z "$JDKPATH" || echo /)" jar) cmvf ../MANIFEST.MF ../OBJ/dev_game.jar $(find . -iname "*.class") >/dev/null
