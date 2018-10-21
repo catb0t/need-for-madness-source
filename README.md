@@ -22,11 +22,11 @@ I do not endorse or want use of this code for commercial purposes, and you reall
 
 - <s>`jd-1.5` contains the (fixed-up) version of the code decompiled by `jd-gui` (Java Decompiler) 1.4.0, a program designed for Java 5</s> JD doesn't seem to provide anything of value over Procyon
 
-- `luyten-1.8` contains the (fixed-up) version of the code decompiled by `luyten` 0.5.3 / `procyon` 0.5.3, a program designed for modern Java 6+
+- `luyten-1.8` contains the broken version of the code directly decompiled by `luyten` 0.5.3 / `procyon` 0.5.3, a program designed for modern Java 6+
 
 - `master` contains the Procyon source as a base, and has useful differences from other branches merged into it
 
-- `deprecations` is where we fix deprecation warnings and other things reported by -Xlint:all
+- `depr` is where we fix deprecation warnings and other things reported by -Xlint:all
 
 later there might come a branch where we make it run on Java 8+....
 
