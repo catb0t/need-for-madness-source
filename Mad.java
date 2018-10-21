@@ -79,7 +79,7 @@ public class Mad
     int shakedam;
     int outshakedam;
     boolean colidim;
-    
+
     public Mad(final CarDefine cd, final Medium m, final Record rpd, final xtGraphics xt, final int im) {
         this.cn = 0;
         this.im = 0;
@@ -160,7 +160,7 @@ public class Mad
         this.xt = xt;
         this.im = im;
     }
-    
+
     public void reseto(final int cn, final ContO contO, final CheckPoints checkPoints) {
         this.cn = cn;
         for (int i = 0; i < 8; ++i) {
@@ -251,7 +251,7 @@ public class Mad
             this.fixes = 1;
         }
     }
-    
+
     public void drive(final Control control, final ContO contO, final Trackers trackers, final CheckPoints checkPoints) {
         int n = 1;
         int n2 = 1;
@@ -1875,7 +1875,7 @@ public class Mad
             }
         }
     }
-    
+
     public void distruct(final ContO contO) {
         for (int i = 0; i < contO.npl; ++i) {
             if (contO.p[i].wz == 0 || contO.p[i].gr == -17 || contO.p[i].gr == -16) {
@@ -1883,7 +1883,7 @@ public class Mad
             }
         }
     }
-    
+
     public int regy(final int n, float n2, final ContO contO) {
         int n3 = 0;
         boolean b = true;
@@ -2039,7 +2039,7 @@ public class Mad
         }
         return n3;
     }
-    
+
     public int regx(final int n, float n2, final ContO contO) {
         int n3 = 0;
         boolean b = true;
@@ -2126,7 +2126,7 @@ public class Mad
         }
         return n3;
     }
-    
+
     public int regz(final int n, float n2, final ContO contO) {
         int n3 = 0;
         boolean b = true;
@@ -2213,7 +2213,7 @@ public class Mad
         }
         return n3;
     }
-    
+
     public void colide(final ContO contO, final Mad mad, final ContO contO2) {
         final float[] array = new float[4];
         final float[] array2 = new float[4];
@@ -2392,7 +2392,7 @@ public class Mad
             }
         }
     }
-    
+
     public void rot(final float[] array, final float[] array2, final int n, final int n2, final int n3, final int n4) {
         if (n3 != 0) {
             for (int i = 0; i < n4; ++i) {
@@ -2403,11 +2403,11 @@ public class Mad
             }
         }
     }
-    
+
     public int rpy(final float n, final float n2, final float n3, final float n4, final float n5, final float n6) {
         return (int)((n - n2) * (n - n2) + (n3 - n4) * (n3 - n4) + (n5 - n6) * (n5 - n6));
     }
-    
+
     public int py(final int n, final int n2, final int n3, final int n4) {
         return (n - n2) * (n - n2) + (n3 - n4) * (n3 - n4);
     }
