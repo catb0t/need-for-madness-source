@@ -13,7 +13,21 @@ You may read, compile, execute, and use / link against the code for noncommercia
 
 I do not endorse or want use of this code for commercial purposes, and you really shouldn't do it.
 
+## Branches
+
+- `jd-1.5` contains the (fixed-up) version of the code decompiled by `jd-gui` (Java Decompiler) 1.4.0, a program designed for Java 5
+
+- `luyten-1.8` contains the (fixed-up) version of the code decompiled by `luyten` 0.5.3 / `procyon` 0.5.3, a program designed for modern Java 6+
+
+- `master` contains the Procyon source as a base, and has useful differences from `jd-1.5` (if any) merged into it
+
+- `deprecations` is where we fix deprecation warnings and other things reported by -Xlint:all
+
+later there might come a branch where we make it run on Java 8+....
+
 ## Bugs
+Things that are wrong and different from the official Game.jar
+
 - Skybox colours are black with white clouds here, but are properly coloured in the reference implementation
   - <s>Medium::setsky: might confuse RGB and HSB values for some reason</s>
   - Medium::setsky and setsnap seem to interpret values from stageN.txts just fine
