@@ -28,6 +28,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Panel;
 
+@SuppressWarnings("serial")
 public class xtGraphics extends Panel implements Runnable
 {
     Graphics2D rd;
@@ -1294,10 +1295,15 @@ public class xtGraphics extends Panel implements Runnable
                 catch (Exception ex5) {}
                 this.runtyp = 0;
                 if (this.app.cmsg.isShowing()) {
-                    this.app.cmsg.hide();
+                    this.app.cmsg.setVisible(true);
                     this.app.requestFocus();
                 }
                 this.runner.stop();
+                /*try {
+                  //this.runner = null; // NOTE: added this, might be broken
+                } catch (InterruptedException ex) {
+                  // NOTE: caught here
+                }*/
             }
             if (this.sendstat != 2) {
                 int n2 = 2;
@@ -1453,8 +1459,14 @@ public class xtGraphics extends Panel implements Runnable
 
     public void stopallnow() {
         if (this.runner != null) {
-            this.runner.stop();
+          this.runner.stop();
+          this.runner = null;
+          /*try {
+            this.runner.join(0);
             this.runner = null;
+          } catch (InterruptedException ex) {
+            // NOTE: caught here
+          }*/
         }
         this.runtyp = 0;
         if (this.loadedt) {
@@ -1464,15 +1476,15 @@ public class xtGraphics extends Panel implements Runnable
         }
         for (int i = 0; i < 5; ++i) {
             for (int j = 0; j < 5; ++j) {
-                this.engs[i][j].stop();
+                this.engs[i][j].stop_clip();
                 this.engs[i][j] = null;
             }
         }
         for (int k = 0; k < 6; ++k) {
-            this.air[k].stop();
+            this.air[k].stop_clip();
             this.air[k] = null;
         }
-        this.wastd.stop();
+        this.wastd.stop_clip();
         this.intertrack.unload();
         this.intertrack = null;
     }
@@ -1979,8 +1991,8 @@ public class xtGraphics extends Panel implements Runnable
         }
         this.app.repaint();
         if (this.cd.staction != 0) {
-            this.app.tnick.hide();
-            this.app.tpass.hide();
+            this.app.tnick.setVisible(false);
+            this.app.tpass.setVisible(false);
             this.cd.staction = 0;
         }
         this.removeds = 0;
@@ -2081,8 +2093,8 @@ public class xtGraphics extends Panel implements Runnable
                     checkPoints.stage = -3;
                 }
                 if (this.app.openm && this.cd.staction == 3) {
-                    this.app.tnick.hide();
-                    this.app.tpass.hide();
+                    this.app.tnick.setVisible(false);
+                    this.app.tpass.setVisible(false);
                     this.cd.staction = 0;
                 }
                 int n4 = 0;
@@ -2141,8 +2153,8 @@ public class xtGraphics extends Panel implements Runnable
                 }
                 if (this.app.sgame.getSelectedIndex() == 5) {
                     if (this.cd.staction != 0) {
-                        this.app.tnick.hide();
-                        this.app.tpass.hide();
+                        this.app.tnick.setVisible(false);
+                        this.app.tpass.setVisible(false);
                         this.cd.staction = 0;
                     }
                     this.app.mstgs.setSize(338, 22);
@@ -2342,8 +2354,8 @@ public class xtGraphics extends Panel implements Runnable
                             this.tcnt = 0;
                             if (!this.app.tnick.getText().equals("") && !this.app.tpass.getText().equals("")) {
                                 this.autolog = false;
-                                this.app.tnick.hide();
-                                this.app.tpass.hide();
+                                this.app.tnick.setVisible(false);
+                                this.app.tpass.setVisible(false);
                                 this.app.requestFocus();
                                 this.cd.staction = 4;
                                 this.cd.sparkstageaction();
@@ -2363,8 +2375,8 @@ public class xtGraphics extends Panel implements Runnable
                         this.cntflock = 100;
                     }
                     if (this.drawcarb(true, null, "  Cancel  ", 409, 282, n, n2, b)) {
-                        this.app.tnick.hide();
-                        this.app.tpass.hide();
+                        this.app.tnick.setVisible(false);
+                        this.app.tpass.setVisible(false);
                         this.app.requestFocus();
                         this.cd.staction = 0;
                     }
@@ -2665,8 +2677,8 @@ public class xtGraphics extends Panel implements Runnable
             }
             this.app.gmode.hide();
             this.hidos();
-            this.app.tnick.hide();
-            this.app.tpass.hide();
+            this.app.tnick.setVisible(false);
+            this.app.tpass.setVisible(false);
             this.intertrack.stop();
         }
     }
@@ -2953,9 +2965,14 @@ public class xtGraphics extends Panel implements Runnable
         }
         this.loadstrack(runtyp, s, n);
         if (b) {
-            this.runner.stop();
+          this.runner.stop();
+          this.runner = null;
+          /*try {
             this.runner = null;
-            this.runtyp = 0;
+          } catch (InterruptedException ex) {
+            // NOTE: caught here
+          }*/
+          this.runtyp = 0;
         }
         System.gc();
         if (this.multion == 0 && this.app.applejava) {
@@ -3189,7 +3206,12 @@ public class xtGraphics extends Panel implements Runnable
                                 this.sendstat = 1;
                                 if (this.runtyp != -101) {
                                     if (this.runner != null) {
-                                        this.runner.stop();
+                                      this.runner.stop();
+                                      /*try {
+                                        this.runner.join(0);
+                                      } catch (InterruptedException ex) {
+                                         // NOTE: caught here
+                                      }*/
                                     }
                                     (this.runner = new Thread(this)).start();
                                 }
@@ -3483,7 +3505,7 @@ public class xtGraphics extends Panel implements Runnable
                             this.rd.fillRect(33, 423 + n12, 761, 23);
                         }
                         if (control.chatup == 0 && this.app.cmsg.isShowing()) {
-                            this.app.cmsg.hide();
+                            this.app.cmsg.setVisible(false);
                             this.app.requestFocus();
                         }
                         if (control.chatup != i + 1) {
@@ -3633,7 +3655,7 @@ public class xtGraphics extends Panel implements Runnable
                         if (b) {
                             control.chatup = 0;
                             if (this.app.cmsg.isShowing()) {
-                                this.app.cmsg.hide();
+                                this.app.cmsg.setVisible(false);
                                 this.app.requestFocus();
                             }
                             this.runtyp = 0;
@@ -3654,7 +3676,7 @@ public class xtGraphics extends Panel implements Runnable
                 else {
                     this.drawWarning();
                     if (this.app.cmsg.isShowing()) {
-                        this.app.cmsg.hide();
+                        this.app.cmsg.setVisible(false);
                         this.app.requestFocus();
                     }
                     ++this.warning;
@@ -3667,7 +3689,12 @@ public class xtGraphics extends Panel implements Runnable
                 if (!this.lan) {
                     this.runtyp = -101;
                     if (this.runner != null) {
-                        this.runner.stop();
+                      this.runner.stop();
+                      /*try {
+                        this.runner.join(0);
+                      } catch (InterruptedException ex) {
+                         // NOTE: caught here
+                      }*/
                     }
                     (this.runner = new Thread(this)).start();
                 }
@@ -3676,7 +3703,12 @@ public class xtGraphics extends Panel implements Runnable
                 this.sendstat = 1;
                 if (this.runtyp != -101) {
                     if (this.runner != null) {
-                        this.runner.stop();
+                      this.runner.stop();
+                      /*try {
+                        this.runner.join(0);
+                      } catch (InterruptedException ex) {
+                         // NOTE: caught here
+                      }*/
                     }
                     (this.runner = new Thread(this)).start();
                 }
@@ -3969,7 +4001,7 @@ public class xtGraphics extends Panel implements Runnable
             this.rd.setColor(new Color((int)(this.m.cgrnd[0] / 1.2f), (int)(this.m.cgrnd[1] / 1.2f), (int)(this.m.cgrnd[2] / 1.2f)));
             this.rd.drawRect(676, 426 - n * 23, 109, 17);
             if (!this.app.cmsg.isShowing()) {
-                this.app.cmsg.show();
+                this.app.cmsg.setVisible(true);
                 this.app.cmsg.requestFocus();
                 this.lcmsg[n] = "";
                 this.app.cmsg.setText("");
@@ -5649,7 +5681,7 @@ public class xtGraphics extends Panel implements Runnable
                     }
                     if (this.cfase == 7) {
                         if (this.app.mycar.isShowing()) {
-                            this.app.mycar.hide();
+                            this.app.mycar.setVisible(true);
                         }
                         this.drawprom(145, 95);
                         this.drawcs(175, "Remove this car from your account?", 0, 0, 0, 3);
@@ -5689,12 +5721,12 @@ public class xtGraphics extends Panel implements Runnable
                         if (this.multion == 0) {
                             if (!this.app.openm) {
                                 if (!this.app.mycar.isShowing()) {
-                                    this.app.mycar.show();
+                                    this.app.mycar.setVisible(true);
                                     this.app.mycar.setState(this.cd.include[this.sc[0] - 16]);
                                 }
                             }
                             else {
-                                this.app.mycar.hide();
+                                this.app.mycar.setVisible(false);
                             }
                             this.rd.setColor(new Color(198, 179, 129));
                             this.rd.fillRoundRect(305, 302, 190, 24, 7, 20);
@@ -5710,7 +5742,7 @@ public class xtGraphics extends Panel implements Runnable
                             this.cd.action = 0;
                             this.cfase = 10;
                             if (this.app.mycar.isShowing()) {
-                                this.app.mycar.hide();
+                                this.app.mycar.setVisible(false);
                             }
                         }
                         if (this.cd.lastload == 2) {
@@ -5966,7 +5998,7 @@ public class xtGraphics extends Panel implements Runnable
                                 this.drawcs(171, "Please enter your Password!", 0, 0, 0, 3);
                             }
                             if (!this.showtf) {
-                                this.app.tnick.show();
+                                this.app.tnick.setVisible(true);
                                 this.app.tnick.setBackground(new Color(206, 237, 255));
                                 if (this.cd.reco != 1) {
                                     if (this.cd.reco != 2) {
@@ -5978,7 +6010,7 @@ public class xtGraphics extends Panel implements Runnable
                                     this.app.tnick.setForeground(new Color(255, 0, 0));
                                 }
                                 this.app.tnick.requestFocus();
-                                this.app.tpass.show();
+                                this.app.tpass.setVisible(true);
                                 this.app.tpass.setBackground(new Color(206, 237, 255));
                                 if (this.cd.reco != 2) {
                                     if (!this.autolog) {
@@ -6013,8 +6045,8 @@ public class xtGraphics extends Panel implements Runnable
                                     this.tcnt = 0;
                                     if (!this.app.tnick.getText().equals("") && !this.app.tpass.getText().equals("")) {
                                         this.autolog = false;
-                                        this.app.tnick.hide();
-                                        this.app.tpass.hide();
+                                        this.app.tnick.setVisible(false);
+                                        this.app.tpass.setVisible(false);
                                         this.app.requestFocus();
                                         this.cd.action = 1;
                                         this.cd.sparkactionloader();
@@ -6034,8 +6066,8 @@ public class xtGraphics extends Panel implements Runnable
                                 this.cntflock = 100;
                             }
                             if (this.drawcarb(true, null, "  Cancel  ", 409, 282, n, n2, b)) {
-                                this.app.tnick.hide();
-                                this.app.tpass.hide();
+                                this.app.tnick.setVisible(false);
+                                this.app.tpass.setVisible(false);
                                 this.app.requestFocus();
                                 this.cfase = this.basefase;
                             }
@@ -6353,7 +6385,7 @@ public class xtGraphics extends Panel implements Runnable
                 this.cd.action = 0;
             }
             if (this.app.mycar.isShowing()) {
-                this.app.mycar.hide();
+                this.app.mycar.setVisible(false);
             }
             this.pback = 0;
             this.pnext = 0;
@@ -6491,7 +6523,7 @@ public class xtGraphics extends Panel implements Runnable
                     this.scm[1] = this.sc[0];
                 }
                 if (this.app.mycar.isShowing()) {
-                    this.app.mycar.hide();
+                    this.app.mycar.setVisible(false);
                 }
                 this.flexpix = null;
                 control.handb = false;
@@ -6512,8 +6544,8 @@ public class xtGraphics extends Panel implements Runnable
             if (this.cfase == 5 && this.cd.action == 0 && control.enter) {
                 this.tcnt = 0;
                 if (!this.app.tnick.getText().equals("") && !this.app.tpass.getText().equals("")) {
-                    this.app.tnick.hide();
-                    this.app.tpass.hide();
+                    this.app.tnick.setVisible(false);
+                    this.app.tpass.setVisible(false);
                     this.app.requestFocus();
                     this.cd.action = 1;
                     this.cd.sparkactionloader();
@@ -6548,7 +6580,7 @@ public class xtGraphics extends Panel implements Runnable
             this.multion = 1;
             this.gmode = 0;
             if (this.app.mycar.isShowing()) {
-                this.app.mycar.hide();
+                this.app.mycar.setVisible(false);
             }
             this.flexpix = null;
             control.handb = false;
@@ -9183,7 +9215,7 @@ public class xtGraphics extends Panel implements Runnable
             }
             else {
                 if (this.pwastd) {
-                    this.wastd.stop();
+                    this.wastd.stop_clip();
                     this.pwastd = false;
                 }
                 if (this.cntwis == 7 && !this.mutes) {
@@ -9194,7 +9226,7 @@ public class xtGraphics extends Panel implements Runnable
         else {
             this.sparkeng(-2, mad.cn);
             if (this.pwastd) {
-                this.wastd.stop();
+                this.wastd.stop_clip();
                 this.pwastd = false;
             }
         }
@@ -9258,7 +9290,7 @@ public class xtGraphics extends Panel implements Runnable
 
     public void stopairs() {
         for (int i = 0; i < 6; ++i) {
-            this.air[i].stop();
+            this.air[i].stop_clip();
         }
     }
 
@@ -9266,7 +9298,7 @@ public class xtGraphics extends Panel implements Runnable
         if (this.lcn != lcn) {
             for (int i = 0; i < 5; ++i) {
                 if (this.pengs[i]) {
-                    this.engs[this.cd.enginsignature[this.lcn]][i].stop();
+                    this.engs[this.cd.enginsignature[this.lcn]][i].stop_clip();
                     this.pengs[i] = false;
                 }
             }
@@ -9281,7 +9313,7 @@ public class xtGraphics extends Panel implements Runnable
                 }
             }
             else if (this.pengs[j]) {
-                this.engs[this.cd.enginsignature[lcn]][j].stop();
+                this.engs[this.cd.enginsignature[lcn]][j].stop_clip();
                 this.pengs[j] = false;
             }
         }
@@ -9415,7 +9447,7 @@ public class xtGraphics extends Panel implements Runnable
         if ((this.bfsc1 == 0 || this.bfsc2 == 0) && Math.sqrt(n * n + n2 * n2 + n3 * n3) / 10.0 > 15.0) {
             if (this.bfsc1 == 0) {
                 if (!this.mutes) {
-                    this.scrape[2].stop();
+                    this.scrape[2].stop_clip();
                     this.scrape[2].play();
                 }
                 this.bfsc1 = 12;
@@ -9423,7 +9455,7 @@ public class xtGraphics extends Panel implements Runnable
             }
             else {
                 if (!this.mutes) {
-                    this.scrape[3].stop();
+                    this.scrape[3].stop_clip();
                     this.scrape[3].play();
                 }
                 this.bfsc2 = 12;
@@ -10450,6 +10482,11 @@ public class xtGraphics extends Panel implements Runnable
             this.runtyp = 0;
             this.app.repaint();
             this.app.gamer.stop();
+            /*try {
+              this.app.gamer.join(0);
+            } catch (InterruptedException ex) {
+              // NOTE: caught here
+            }*/
         }
     }
 
@@ -10508,5 +10545,10 @@ public class xtGraphics extends Panel implements Runnable
         }
         catch (Exception ex) {}
         return s2;
+    }
+
+    // NOTE: added method
+    static private void writeObject(java.io.ObjectOutputStream oos) throws java.io.IOException {
+      throw new java.io.IOException("Unserializable type: GameSparker");
     }
 }

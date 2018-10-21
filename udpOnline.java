@@ -14,7 +14,7 @@ public class udpOnline implements Runnable
     boolean started;
     boolean errd;
     int nu;
-    
+
     public udpOnline(final UDPMistro um, final String s, final int gameport, final int nu, final int n) {
         this.gameport = 7001;
         this.sendat = 0L;
@@ -33,7 +33,7 @@ public class udpOnline implements Runnable
             System.out.println("Error preparing for UDP Connection: " + ex);
         }
     }
-    
+
     public void spark() {
         if (this.errd) {
             try {
@@ -47,7 +47,7 @@ public class udpOnline implements Runnable
         }
         catch (Exception ex2) {}
     }
-    
+
     public void closeSocket() {
         try {
             this.dSocket.close();
@@ -56,20 +56,34 @@ public class udpOnline implements Runnable
         this.dSocket = null;
         this.errd = true;
         if (this.con != null) {
-            this.con.stop();
+          this.con.stop();
+          this.con = null;
+
+          /*try {
+            this.con.join(0);
             this.con = null;
+          } catch (InterruptedException ex) {
+            // NOTE: caught here
+          }*/
         }
         this.started = false;
     }
-    
+
     public void stomp() {
         if (this.con != null) {
-            this.con.stop();
+          this.con.stop();
+          this.con = null;
+
+          /*try {
+            this.con.join(0);
             this.con = null;
+          } catch (InterruptedException ex) {
+            // NOTE: caught here
+          }*/
         }
         this.started = false;
     }
-    
+
     @Override
     public void run() {
         this.started = true;
@@ -153,7 +167,7 @@ public class udpOnline implements Runnable
         this.started = false;
         this.con = null;
     }
-    
+
     public int getvalue(final String s, final int n) {
         int intValue = -1;
         try {
@@ -183,7 +197,7 @@ public class udpOnline implements Runnable
         catch (Exception ex) {}
         return intValue;
     }
-    
+
     public String getSvalue(final String s, final int n) {
         String s2 = "";
         try {

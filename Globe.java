@@ -347,7 +347,7 @@ public class Globe implements Runnable
     int vscore;
     String lwbwinner;
     boolean canredo;
-    
+
     public Globe(final Graphics2D rd, final xtGraphics xt, final Medium m, final Login lg, final CarDefine cd, final CheckPoints cp, final ContO[] bco, final ContO[] co, final GameSparker gs) {
         this.domon = false;
         this.fase = 0;
@@ -694,7 +694,7 @@ public class Globe implements Runnable
             this.itab = 2;
         }
     }
-    
+
     public void dome(int n, final int n2, final int n3, final boolean b, final Control control) {
         boolean b2 = false;
         boolean b3 = false;
@@ -2733,7 +2733,7 @@ public class Globe implements Runnable
             else {
                 this.xt.drawWarning();
                 if (this.gs.cmsg.isShowing()) {
-                    this.gs.cmsg.hide();
+                    this.gs.cmsg.setVisible(false);
                     this.gs.requestFocus();
                 }
                 if (this.xt.warning > 220) {
@@ -2764,7 +2764,7 @@ public class Globe implements Runnable
         }
         if (b3) {
             if (!this.gs.cmsg.isShowing()) {
-                this.gs.cmsg.show();
+                this.gs.cmsg.setVisible(true);
                 this.gs.cmsg.setText(this.sentance);
                 this.gs.cmsg.requestFocus();
             }
@@ -2783,7 +2783,7 @@ public class Globe implements Runnable
         }
         if (this.dorank) {
             if (!this.gs.cmsg.isShowing()) {
-                this.gs.cmsg.show();
+                this.gs.cmsg.setVisible(true);
                 this.gs.cmsg.setText(this.mrank[this.em]);
                 this.gs.cmsg.requestFocus();
             }
@@ -2801,7 +2801,7 @@ public class Globe implements Runnable
         }
         if (this.donewc) {
             if (!this.gs.temail.isShowing()) {
-                this.gs.temail.show();
+                this.gs.temail.setVisible(true);
                 this.gs.temail.setText("");
                 this.gs.temail.requestFocus();
             }
@@ -2826,7 +2826,7 @@ public class Globe implements Runnable
         }
         if (this.dosrch) {
             if (!this.gs.temail.isShowing()) {
-                this.gs.temail.show();
+                this.gs.temail.setVisible(true);
                 this.gs.temail.setText("");
                 this.gs.temail.requestFocus();
             }
@@ -2851,7 +2851,7 @@ public class Globe implements Runnable
         }
         if (this.doweb1) {
             if (!this.gs.temail.isShowing()) {
-                this.gs.temail.show();
+                this.gs.temail.setVisible(true);
                 this.gs.temail.setText(this.ltit);
                 this.gs.temail.requestFocus();
             }
@@ -2870,7 +2870,7 @@ public class Globe implements Runnable
                 this.gs.temail.setText("");
             }
             if (!this.gs.cmsg.isShowing()) {
-                this.gs.cmsg.show();
+                this.gs.cmsg.setVisible(true);
                 this.gs.cmsg.setText(this.ldes);
             }
             this.gs.movefield(this.gs.cmsg, 411, 204, 300, 22);
@@ -2890,7 +2890,7 @@ public class Globe implements Runnable
         }
         if (this.doweb2) {
             if (!this.gs.temail.isShowing()) {
-                this.gs.temail.show();
+                this.gs.temail.setVisible(true);
                 this.gs.temail.requestFocus();
             }
             this.gs.movefield(this.gs.temail, 354, 134, 350, 22);
@@ -2899,7 +2899,7 @@ public class Globe implements Runnable
             if (!this.donemsg) {
                 this.gs.mmsg.setText(" ");
                 if (!this.gs.applejava) {
-                    this.gs.mmsg.show();
+                    this.gs.mmsg.setVisible(true);
                     this.gs.mmsg.requestFocus();
                 }
                 this.donemsg = true;
@@ -2908,20 +2908,20 @@ public class Globe implements Runnable
         }
         else {
             if (this.gs.mmsg.isShowing()) {
-                this.gs.mmsg.hide();
+                this.gs.mmsg.setVisible(false);
             }
             if (this.donemsg) {
                 this.donemsg = false;
             }
         }
         if (!this.dosrch && !this.donewc && !this.doweb1 && !this.doweb2 && this.gs.temail.isShowing()) {
-            this.gs.temail.hide();
+            this.gs.temail.setVisible(false);
         }
         if (!b2 && !b3 && !this.dorank && !this.doweb1 && this.open == 452 && this.gs.cmsg.isShowing()) {
-            this.gs.cmsg.hide();
+            this.gs.cmsg.setVisible(false);
         }
     }
-    
+
     public void dotab3(final int n, final int n2, boolean b) {
         if (this.cfase == 0) {
             this.rd.setColor(new Color(0, 0, 0));
@@ -5676,7 +5676,7 @@ public class Globe implements Runnable
             }
         }
     }
-    
+
     public void dotab2(final int n, final int n2, final boolean b) {
         if (this.itab == 0) {
             if (this.litab != this.itab) {
@@ -9624,7 +9624,7 @@ public class Globe implements Runnable
             }
         }
     }
-    
+
     @Override
     public void run() {
         try {
@@ -12797,7 +12797,7 @@ public class Globe implements Runnable
         }
         this.onexit();
     }
-    
+
     public void onexit() {
         this.onexitpro();
         this.gs.hidefields();
@@ -12846,7 +12846,7 @@ public class Globe implements Runnable
         }
         catch (Exception ex) {}
     }
-    
+
     public void onexitpro() {
         this.edit = 0;
         this.upload = 0;
@@ -12860,11 +12860,17 @@ public class Globe implements Runnable
         this.gs.proitem.show = false;
         this.addstage = 0;
     }
-    
+
     public void stopallnow() {
         if (this.connector != null) {
             this.connector.stop();
             this.connector = null;
+            /*try {
+              this.connector.join(0);
+              this.connector = null;
+            } catch (InterruptedException ex) {
+               // NOTE: caught here
+            }*/
         }
         try {
             this.socket.close();
@@ -12877,7 +12883,7 @@ public class Globe implements Runnable
         }
         catch (Exception ex) {}
     }
-    
+
     public void trunsent() {
         for (int i = 0; i < 3; ++i) {
             this.aboutxt[i] = "";
@@ -12930,7 +12936,7 @@ public class Globe implements Runnable
             ++this.nab;
         }
     }
-    
+
     public void roomlogos(final String[] array, final int n) {
         for (int i = 0; i < 2; ++i) {
             boolean b = true;
@@ -12969,7 +12975,7 @@ public class Globe implements Runnable
             }
         }
     }
-    
+
     public void domelogos() {
         for (int i = 0; i < 5; ++i) {
             int n = 1;
@@ -13196,7 +13202,7 @@ public class Globe implements Runnable
             }
         }
     }
-    
+
     public boolean drawl(final Graphics2D graphics2D, final String s, final int n, final int n2, final boolean b) {
         boolean checkID = false;
         int n3 = -1;
@@ -13218,7 +13224,7 @@ public class Globe implements Runnable
         }
         return checkID;
     }
-    
+
     public void logopng() {
         int nlg = -1;
         boolean b = false;
@@ -13266,7 +13272,7 @@ public class Globe implements Runnable
             this.logol = this.logon[nlg];
         }
     }
-    
+
     public void clanlogopng(final String s) {
         int nlg = -1;
         boolean b = false;
@@ -13313,7 +13319,7 @@ public class Globe implements Runnable
             catch (Exception ex) {}
         }
     }
-    
+
     public void avatarpng() {
         this.avatarl = false;
         String string = "";
@@ -13330,7 +13336,7 @@ public class Globe implements Runnable
         }
         catch (Exception ex) {}
     }
-    
+
     public void clanbgpng() {
         this.clanbgl = false;
         String string = "";
@@ -13347,7 +13353,7 @@ public class Globe implements Runnable
         }
         catch (Exception ex) {}
     }
-    
+
     public void intclanbgpng(final String intclanlo) {
         if (!this.intclanlo.equals(intclanlo)) {
             this.intclanbgloaded = false;
@@ -13363,7 +13369,7 @@ public class Globe implements Runnable
             this.intclanlo = intclanlo;
         }
     }
-    
+
     public void loadmyclanbg() {
         if (this.loadedmyclanbg <= 0) {
             String string = "";
@@ -13382,7 +13388,7 @@ public class Globe implements Runnable
             catch (Exception ex) {}
         }
     }
-    
+
     public void loadclan() {
         this.notclan = false;
         int ncln = 0;
@@ -13455,7 +13461,7 @@ public class Globe implements Runnable
             }
         }
     }
-    
+
     public void loadclanlink() {
         this.ltit = "";
         this.ldes = "";
@@ -13487,7 +13493,7 @@ public class Globe implements Runnable
             this.lurl = "";
         }
     }
-    
+
     public void loadfclan() {
         this.ncln = 0;
         try {
@@ -13507,7 +13513,7 @@ public class Globe implements Runnable
         }
         catch (Exception ex) {}
     }
-    
+
     public int loadclancars() {
         this.m.csky[0] = 170;
         this.m.csky[1] = 220;
@@ -13553,7 +13559,7 @@ public class Globe implements Runnable
         }
         return n;
     }
-    
+
     public int loadaddcars() {
         int n = 3;
         int n2 = 0;
@@ -13627,7 +13633,7 @@ public class Globe implements Runnable
         }
         return n;
     }
-    
+
     public void loadiclancars(final String s) {
         try {
             final URL url = new URL("http://multiplayer.needformadness.com/clans/" + s + "/cars.txt");
@@ -13653,7 +13659,7 @@ public class Globe implements Runnable
         }
         this.gs.datat.select(0);
     }
-    
+
     public int loadclanstages() {
         int n = 0;
         this.gs.clcars.removeAll();
@@ -13690,7 +13696,7 @@ public class Globe implements Runnable
         }
         return n;
     }
-    
+
     public int loadaddstages() {
         int n = 3;
         int n2 = 0;
@@ -13764,7 +13770,7 @@ public class Globe implements Runnable
         }
         return n;
     }
-    
+
     public void loadiclanstages(final String s) {
         try {
             final URL url = new URL("http://multiplayer.needformadness.com/clans/" + s + "/stages.txt");
@@ -13790,7 +13796,7 @@ public class Globe implements Runnable
         }
         this.gs.datat.select(0);
     }
-    
+
     public void loadproinfo() {
         if (!this.proname.equals(this.xt.nickname) && this.npf == -1) {
             this.loadfriends();
@@ -13860,7 +13866,7 @@ public class Globe implements Runnable
             this.sentance = "Failed to load profile info, server error!";
         }
     }
-    
+
     public void loadprostages() {
         final String[] array = new String[700];
         int n = 0;
@@ -13922,7 +13928,7 @@ public class Globe implements Runnable
         }
         System.gc();
     }
-    
+
     public void loadfriends() {
         if (this.npf == -1) {
             this.freq = 0;
@@ -13970,7 +13976,7 @@ public class Globe implements Runnable
             }
         }
     }
-    
+
     public void loadnews() {
         try {
             final URL url = new URL("http://multiplayer.needformadness.com/interact/news.txt?req=" + (int)(Math.random() * 1000.0) + "");
@@ -14187,7 +14193,7 @@ public class Globe implements Runnable
             this.loadednews = -1;
         }
     }
-    
+
     public void loadchamps() {
         this.eng = -1;
         this.engo = 0;
@@ -14271,7 +14277,7 @@ public class Globe implements Runnable
             }
         }
     }
-    
+
     public String contime(final long n) {
         String s = "";
         if (n != -1L) {
@@ -14311,7 +14317,7 @@ public class Globe implements Runnable
         }
         return s;
     }
-    
+
     public void tlink(final Graphics2D graphics2D, final int n, final int n2, final String s, final String s2, final int n3, final int n4, final boolean b, final int n5, final int n6, final int n7, final String viewcar, final String s3) {
         this.ftm = this.rdo.getFontMetrics();
         int n8 = 0;
@@ -14391,7 +14397,7 @@ public class Globe implements Runnable
             }
         }
     }
-    
+
     public void loadwarb() {
         try {
             final URL url = new URL("http://multiplayer.needformadness.com/clans/" + this.xt.clan + "/inter.txt?req=" + (int)(Math.random() * 1000.0) + "");
@@ -14438,7 +14444,7 @@ public class Globe implements Runnable
         }
         this.gs.warb.select(0);
     }
-    
+
     public void loadwgames() {
         this.canredo = false;
         this.gameturn = -1;
@@ -14580,7 +14586,7 @@ public class Globe implements Runnable
             this.loadwbgames = 3;
         }
     }
-    
+
     public void redogame() {
         try {
             this.socket = new Socket(this.lg.servers[0], 7061);
@@ -14603,7 +14609,7 @@ public class Globe implements Runnable
             this.loadwgames();
         }
     }
-    
+
     public boolean drawbutton(final Image image, final int n, final int n2, final int n3, final int n4, final boolean b) {
         boolean b2 = false;
         boolean b3 = false;
@@ -14631,7 +14637,7 @@ public class Globe implements Runnable
         }
         return b2;
     }
-    
+
     public boolean stringbutton(final Graphics2D graphics2D, final String s, final int n, final int n2, int n3, final int n4, final int n5, final boolean b, final int n6, final int n7) {
         boolean b2 = false;
         boolean b3 = false;
@@ -14708,7 +14714,7 @@ public class Globe implements Runnable
         }
         return b2;
     }
-    
+
     public Color color2k(final int n, final int n2, final int n3) {
         final Color color = new Color(n, n2, n3);
         final float[] array = new float[3];
@@ -14717,7 +14723,7 @@ public class Globe implements Runnable
         array[1] = 0.35f;
         return Color.getHSBColor(array[0], array[1], array[2]);
     }
-    
+
     public Color colorb2k(final boolean b, final int n, final int n2, final int n3) {
         final Color color = new Color(n, n2, n3);
         Color hsbColor;
@@ -14738,7 +14744,7 @@ public class Globe implements Runnable
         }
         return hsbColor;
     }
-    
+
     public int getvalue(final String s, final int n) {
         int intValue = -1;
         try {
@@ -14768,7 +14774,7 @@ public class Globe implements Runnable
         catch (Exception ex) {}
         return intValue;
     }
-    
+
     public String getSvalue(final String s, final int n) {
         String s2 = "";
         try {
@@ -14795,7 +14801,7 @@ public class Globe implements Runnable
         catch (Exception ex) {}
         return s2;
     }
-    
+
     public long getLvalue(final String s, final int n) {
         long longValue = -1L;
         try {
@@ -14825,7 +14831,7 @@ public class Globe implements Runnable
         catch (Exception ex) {}
         return longValue;
     }
-    
+
     public int getpvalue(final String s, final int n) {
         int intValue = 0;
         try {
@@ -14855,7 +14861,7 @@ public class Globe implements Runnable
         catch (Exception ex) {}
         return intValue;
     }
-    
+
     public int getfuncvalue(final String s, final String s2, final int n) {
         int n2 = 0;
         String string = "";
@@ -14871,7 +14877,7 @@ public class Globe implements Runnable
         }
         return (int) Float.valueOf(string).floatValue();
     }
-    
+
     public String getfuncSvalue(final String s, final String s2, final int n) {
         String string = "";
         for (int n2 = 0, n3 = s.length() + 1; n3 < s2.length() && n2 <= n; ++n3) {
@@ -14884,5 +14890,10 @@ public class Globe implements Runnable
             }
         }
         return string;
+    }
+
+    // NOTE: added method
+    static private void writeObject(java.io.ObjectOutputStream oos) throws java.io.IOException {
+      throw new java.io.IOException("Unserializable type: GameSparker");
     }
 }

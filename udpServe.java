@@ -10,7 +10,7 @@ public class udpServe implements Runnable
     int mport;
     int im;
     int[] lsframe;
-    
+
     public udpServe(final UDPMistro um, final int im) {
         this.mport = 7060;
         this.im = 0;
@@ -20,7 +20,7 @@ public class udpServe implements Runnable
         this.mport = 7060 + this.im;
         (this.servo = new Thread(this)).start();
     }
-    
+
     public void stopServe() {
         try {
             this.dSocket.close();
@@ -28,11 +28,17 @@ public class udpServe implements Runnable
         }
         catch (Exception ex) {}
         if (this.servo != null) {
-            this.servo.stop();
+          this.servo.stop();
+          this.servo = null;
+          /*try {
+            this.servo.join(0);
             this.servo = null;
+          } catch (InterruptedException ex) {
+            // NOTE: caught here
+          }*/
         }
     }
-    
+
     @Override
     public void run() {
         try {
@@ -125,7 +131,7 @@ public class udpServe implements Runnable
         }
         catch (Exception ex) {}
     }
-    
+
     public int getvalue(final String s, final int n) {
         int intValue = -1;
         try {
@@ -155,7 +161,7 @@ public class udpServe implements Runnable
         catch (Exception ex) {}
         return intValue;
     }
-    
+
     public String getSvalue(final String s, final int n) {
         String s2 = "";
         try {

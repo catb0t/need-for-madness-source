@@ -36,6 +36,7 @@ import java.awt.Image;
 import java.awt.Graphics2D;
 import java.applet.Applet;
 
+@SuppressWarnings("serial")
 public class GameSparker extends Applet implements Runnable
 {
     Graphics2D rd;
@@ -114,7 +115,7 @@ public class GameSparker extends Applet implements Runnable
     Smenu ilaps;
     Smenu icars;
     Smenu proitem;
-    
+
     public GameSparker() {
         this.mload = 1;
         this.exwist = false;
@@ -179,7 +180,7 @@ public class GameSparker extends Applet implements Runnable
         this.icars = new Smenu(5);
         this.proitem = new Smenu(707);
     }
-    
+
     @Override
     public void run() {
         this.rd.setColor(new Color(0, 0, 0));
@@ -1357,7 +1358,7 @@ public class GameSparker extends Applet implements Runnable
                     udpMistro.UDPquit();
                     xtGraphics.stopchat();
                     if (this.cmsg.isShowing()) {
-                        this.cmsg.hide();
+                        this.cmsg.setVisible(false);
                     }
                     this.cmsg.setText("");
                     this.requestFocus();
@@ -1771,7 +1772,13 @@ public class GameSparker extends Applet implements Runnable
                 }
                 this.gamer.stop();
                 this.gamer = null;
-            }
+/*                try {
+                  this.gamer.join(0);
+                  this.gamer = null;
+                } catch (InterruptedException ex) {
+                  // NOTE: added catch statement for join
+                }
+*/            }
             long n97 = Math.round(n3) - (time3 - time2);
             if (n97 < n5) {
                 n97 = n5;
@@ -1783,13 +1790,13 @@ public class GameSparker extends Applet implements Runnable
             catch (InterruptedException ex) {}
         }
     }
-    
+
     public void checkmemory(final xtGraphics xtGraphics) {
         if (this.applejava || Runtime.getRuntime().freeMemory() / 1048576L < 50L) {
             xtGraphics.badmac = true;
         }
     }
-    
+
     @Override
     public void paint(final Graphics graphics) {
         final Graphics2D graphics2D = (Graphics2D)graphics;
@@ -1923,7 +1930,7 @@ public class GameSparker extends Applet implements Runnable
             graphics2D.drawImage(this.offImage, this.apx, this.apy, this);
         }
     }
-    
+
     public void cropit(final Graphics2D graphics2D, final int n, final int n2) {
         if (n != 0 || n2 != 0) {
             graphics2D.setComposite(AlphaComposite.getInstance(3, 1.0f));
@@ -1946,12 +1953,12 @@ public class GameSparker extends Applet implements Runnable
             }
         }
     }
-    
+
     @Override
     public void update(final Graphics graphics) {
         this.paint(graphics);
     }
-    
+
     @Override
     public void init() {
         this.setBackground(new Color(0, 0, 0));
@@ -1972,11 +1979,11 @@ public class GameSparker extends Applet implements Runnable
                 @Override
                 public void keyReleased(final KeyEvent keyEvent) {
                 }
-                
+
                 @Override
                 public void keyTyped(final KeyEvent keyEvent) {
                 }
-                
+
                 @Override
                 public void keyPressed(final KeyEvent keyEvent) {
                     if (keyEvent.getKeyCode() == 10 && GameSparker.this.u[0] != null) {
@@ -2121,14 +2128,14 @@ public class GameSparker extends Applet implements Runnable
         this.clanlev.add(this.rd, "7 - Admin");
         this.hidefields();
     }
-    
+
     public void hidefields() {
         this.ilaps.hide();
         this.icars.hide();
         this.proitem.hide();
         this.clcars.hide();
         this.clanlev.hide();
-        this.mmsg.hide();
+        this.mmsg.setVisible(false);
         this.datat.hide();
         this.senditem.hide();
         this.sendtyp.hide();
@@ -2139,13 +2146,13 @@ public class GameSparker extends Applet implements Runnable
         this.sclass.hide();
         this.scars.hide();
         this.sfix.hide();
-        this.mycar.hide();
-        this.notp.hide();
-        this.keplo.hide();
-        this.tnick.hide();
-        this.tpass.hide();
-        this.temail.hide();
-        this.cmsg.hide();
+        this.mycar.setVisible(false);
+        this.notp.setVisible(false);
+        this.keplo.setVisible(false);
+        this.tnick.setVisible(false);
+        this.tpass.setVisible(false);
+        this.temail.setVisible(false);
+        this.cmsg.setVisible(false);
         this.sgame.hide();
         this.wgame.hide();
         this.pgame.hide();
@@ -2160,7 +2167,7 @@ public class GameSparker extends Applet implements Runnable
         this.snbts.hide();
         this.swait.hide();
     }
-    
+
     public void drawms() {
         this.openm = false;
         if (this.gmode.draw(this.rd, this.xm, this.ym, this.moused, 450, true)) {
@@ -2248,7 +2255,7 @@ public class GameSparker extends Applet implements Runnable
             this.openm = true;
         }
     }
-    
+
     public void movefield(final Component component, int n, int n2, final int n3, final int n4) {
         if (n3 == 360 || n3 == 576) {
             n = (int)(n * this.apmult + this.apx + component.getWidth() / 2 * (this.apmult - 1.0f));
@@ -2262,13 +2269,13 @@ public class GameSparker extends Applet implements Runnable
             component.setBounds(n, n2, n3, n4);
         }
     }
-    
+
     public void movefieldd(final TextField textField, int n, int n2, final int n3, final int n4, final boolean b) {
         if (this.applejava) {
             if (b) {
                 if ((this.xm > n && this.xm < n + n3 && this.ym > n2 && this.ym < n2 + n4) || !textField.getText().equals("")) {
                     if (!textField.isShowing()) {
-                        textField.show();
+                        textField.setVisible(true);
                         textField.requestFocus();
                     }
                     if (n3 == 360 || n3 == 576) {
@@ -2285,7 +2292,7 @@ public class GameSparker extends Applet implements Runnable
                 }
                 else {
                     if (textField.isShowing()) {
-                        textField.hide();
+                        textField.setVisible(false);
                         this.requestFocus();
                     }
                     this.rd.setColor(textField.getBackground());
@@ -2297,17 +2304,17 @@ public class GameSparker extends Applet implements Runnable
         }
         else {
             if (b && !textField.isShowing()) {
-                textField.show();
+                textField.setVisible(true);
             }
             this.movefield(textField, n, n2, n3, n4);
         }
     }
-    
+
     public void movefielda(final TextArea textArea, int n, int n2, final int n3, final int n4) {
         if (this.applejava) {
             if ((this.xm > n && this.xm < n + n3 && this.ym > n2 && this.ym < n2 + n4) || !textArea.getText().equals(" ")) {
                 if (!textArea.isShowing()) {
-                    textArea.show();
+                    textArea.setVisible(true);
                     textArea.requestFocus();
                 }
                 if (n3 == 360 || n3 == 576) {
@@ -2324,7 +2331,7 @@ public class GameSparker extends Applet implements Runnable
             }
             else {
                 if (textArea.isShowing()) {
-                    textArea.hide();
+                    textArea.setVisible(false);
                     this.requestFocus();
                 }
                 this.rd.setColor(textArea.getBackground());
@@ -2335,12 +2342,12 @@ public class GameSparker extends Applet implements Runnable
         }
         else {
             if (!textArea.isShowing()) {
-                textArea.show();
+                textArea.setVisible(true);
             }
             this.movefield(textArea, n, n2, n3, n4);
         }
     }
-    
+
     public void loadstage(final ContO[] array, final ContO[] array2, final Medium medium, final Trackers trackers, final CheckPoints checkPoints, final xtGraphics xtGraphics, final Mad[] array3, final Record record) {
         if (xtGraphics.testdrive == 2 || xtGraphics.testdrive == 4) {
             xtGraphics.nplayers = 1;
@@ -2765,7 +2772,7 @@ public class GameSparker extends Applet implements Runnable
         }
         System.gc();
     }
-    
+
     public boolean loadstagePreview(final int stage, final String name, final ContO[] array, final ContO[] array2, final Medium medium, final CheckPoints checkPoints) {
         boolean b = true;
         if (stage < 100) {
@@ -3022,7 +3029,7 @@ public class GameSparker extends Applet implements Runnable
         System.gc();
         return b;
     }
-    
+
     public void loadbase(final ContO[] array, final Medium medium, final Trackers trackers, final xtGraphics xtGraphics, final boolean b) {
         final String[] array2 = { "2000tornados", "formula7", "canyenaro", "lescrab", "nimi", "maxrevenge", "leadoxide", "koolkat", "drifter", "policecops", "mustang", "king", "audir8", "masheen", "radicalone", "drmonster" };
         final String[] array3 = { "road", "froad", "twister2", "twister1", "turn", "offroad", "bumproad", "offturn", "nroad", "nturn", "roblend", "noblend", "rnblend", "roadend", "offroadend", "hpground", "ramp30", "cramp35", "dramp15", "dhilo15", "slide10", "takeoff", "sramp22", "offbump", "offramp", "sofframp", "halfpipe", "spikes", "rail", "thewall", "checkpoint", "fixpoint", "offcheckpoint", "sideoff", "bsideoff", "uprise", "riseroad", "sroad", "soffroad", "tside", "launchpad", "thenet", "speedramp", "offhill", "slider", "uphill", "roll1", "roll2", "roll3", "roll4", "roll5", "roll6", "opile1", "opile2", "aircheckpoint", "tree1", "tree2", "tree3", "tree4", "tree5", "tree6", "tree7", "tree8", "cac1", "cac2", "cac3", "8sroad", "8soffroad" };
@@ -3070,7 +3077,7 @@ public class GameSparker extends Applet implements Runnable
             this.mload = 2;
         }
     }
-    
+
     public int getint(final String s, final String s2, final int n) {
         int n2 = 0;
         String string = "";
@@ -3086,7 +3093,7 @@ public class GameSparker extends Applet implements Runnable
         }
         return Integer.valueOf(string);
     }
-    
+
     public String getstring(final String s, final String s2, final int n) {
         int n2 = 0;
         String string = "";
@@ -3102,7 +3109,7 @@ public class GameSparker extends Applet implements Runnable
         }
         return string;
     }
-    
+
     @Override
     public void start() {
         if (this.gamer == null) {
@@ -3110,17 +3117,23 @@ public class GameSparker extends Applet implements Runnable
         }
         this.gamer.start();
     }
-    
+
     @Override
     public void stop() {
         if (this.exwist && this.gamer != null) {
             System.gc();
             this.gamer.stop();
             this.gamer = null;
+            /*try {
+              this.gamer.join(0);
+              this.gamer = null;
+            } catch (InterruptedException ex) {
+              // NOTE: caught this
+            }*/
         }
         this.exwist = true;
     }
-    
+
     public void setcarcookie(final int n, final String s, final float[] array, final int n2, final int[] array2, final boolean b) {
         try {
             final File file = new File("" + Madness.fpath + "data/user.data");
@@ -3152,7 +3165,7 @@ public class GameSparker extends Applet implements Runnable
         }
         catch (Exception ex) {}
     }
-    
+
     public void setloggedcookie() {
         try {
             final File file = new File("" + Madness.fpath + "data/user.data");
@@ -3180,7 +3193,7 @@ public class GameSparker extends Applet implements Runnable
         }
         catch (Exception ex) {}
     }
-    
+
     public void readcookies(final xtGraphics xtGraphics, final CarDefine carDefine, final ContO[] array) {
         xtGraphics.nickname = "";
         try {
@@ -3281,10 +3294,10 @@ public class GameSparker extends Applet implements Runnable
         }
         catch (Exception ex2) {}
     }
-    
+
     public void regprom() {
     }
-    
+
     @Override
     public boolean mouseUp(final Event event, final int n, final int n2) {
         if (!this.exwist) {
@@ -3336,7 +3349,7 @@ public class GameSparker extends Applet implements Runnable
         }
         return false;
     }
-    
+
     @Override
     public boolean mouseDown(final Event event, final int n, final int n2) {
         this.requestFocus();
@@ -3353,7 +3366,7 @@ public class GameSparker extends Applet implements Runnable
         }
         return false;
     }
-    
+
     @Override
     public boolean mouseMove(final Event event, final int n, final int n2) {
         if (!this.exwist && !this.lostfcs) {
@@ -3397,7 +3410,7 @@ public class GameSparker extends Applet implements Runnable
         }
         return false;
     }
-    
+
     @Override
     public boolean mouseDrag(final Event event, final int n, final int n2) {
         if (!this.exwist && !this.lostfcs) {
@@ -3409,7 +3422,7 @@ public class GameSparker extends Applet implements Runnable
         }
         return false;
     }
-    
+
     @Override
     public boolean lostFocus(final Event event, final Object o) {
         if (!this.exwist && !this.lostfcs) {
@@ -3427,7 +3440,7 @@ public class GameSparker extends Applet implements Runnable
         }
         return false;
     }
-    
+
     @Override
     public boolean gotFocus(final Event event, final Object o) {
         if (!this.exwist && this.lostfcs) {
@@ -3435,13 +3448,13 @@ public class GameSparker extends Applet implements Runnable
         }
         return false;
     }
-    
+
     public void mouseW(final int n) {
         if (!this.exwist) {
             this.mousew += n * 4;
         }
     }
-    
+
     public void sizescreen(final int n, final int n2) {
         if ((n > this.getWidth() / 2 - 230 && n < this.getWidth() / 2 - 68 && n2 > 21 && n2 < 39) || this.onbar) {
             this.reqmult = (n - (this.getWidth() / 2 - 222)) / 141.0f;
@@ -3455,7 +3468,7 @@ public class GameSparker extends Applet implements Runnable
             this.showsize = 100;
         }
     }
-    
+
     public void catchlink() {
         if (!this.lostfcs) {
             if ((this.xm > 65 && this.xm < 735 && this.ym > 135 && this.ym < 194) || (this.xm > 275 && this.xm < 525 && this.ym > 265 && this.ym < 284)) {
@@ -3469,19 +3482,19 @@ public class GameSparker extends Applet implements Runnable
             }
         }
     }
-    
+
     public void musiclink() {
         this.openurl("http://multiplayer.needformadness.com/music.html");
     }
-    
+
     public void reglink() {
         this.openurl("http://multiplayer.needformadness.com/register.html?ref=game");
     }
-    
+
     public void madlink() {
         this.openurl("http://www.needformadness.com/");
     }
-    
+
     public void editlink(final String s, final boolean b) {
         String s2 = "";
         if (b) {
@@ -3489,15 +3502,15 @@ public class GameSparker extends Applet implements Runnable
         }
         this.openurl("http://multiplayer.needformadness.com/edit.pl" + s2 + "#" + s + "");
     }
-    
+
     public void regnew() {
         this.openurl("http://multiplayer.needformadness.com/registernew.pl");
     }
-    
+
     public void multlink() {
         this.openurl("http://multiplayer.needformadness.com/");
     }
-    
+
     public void setupini() {
         Madness.inisetup = true;
         try {
@@ -3533,7 +3546,7 @@ public class GameSparker extends Applet implements Runnable
         catch (Exception ex) {}
         Madness.inisetup = false;
     }
-    
+
     public void openurl(final String s) {
         if (Desktop.isDesktopSupported()) {
             try {
@@ -3548,7 +3561,7 @@ public class GameSparker extends Applet implements Runnable
             catch (Exception ex2) {}
         }
     }
-    
+
     @Override
     public boolean keyDown(final Event event, final int n) {
         if (!this.exwist) {
@@ -3631,7 +3644,7 @@ public class GameSparker extends Applet implements Runnable
         }
         return false;
     }
-    
+
     @Override
     public boolean keyUp(final Event event, final int n) {
         if (!this.exwist) {
@@ -3663,5 +3676,10 @@ public class GameSparker extends Applet implements Runnable
             }
         }
         return false;
+    }
+
+    // NOTE: added method
+    static private void writeObject(java.io.ObjectOutputStream oos) throws java.io.IOException {
+      throw new java.io.IOException("Unserializable type: GameSparker");
     }
 }

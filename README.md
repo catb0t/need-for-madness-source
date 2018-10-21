@@ -26,20 +26,22 @@ I do not endorse or want use of this code for commercial purposes, and you reall
 
 - `master` contains the Procyon source as a base, and has useful differences from other branches merged into it
 
-- `deprecations` is where we fix deprecation warnings and other things reported by -Xlint:all
+- `depr` is where we fix deprecation warnings and other things reported by -Xlint:all
 
 later there might come a branch where we make it run on Java 8+....
 
 ## Bugs
 Things that are wrong and different from the official Game.jar
 
-- Skybox colours are black with white clouds here, but are properly coloured in the reference implementation
+- Skybox colours aren't set properly and are always black, but are properly coloured in the reference implementation
   - <s>Medium::setsky: might confuse RGB and HSB values for some reason</s>
   - Medium::setsky and setsnap seem to interpret values from stageN.txts just fine
   - Perhaps the colors are transparent and the Frame background is leaking through? (Madness::main, line 52)
 - Music doesn't play (???)
-- Many deprecation errors, even with Java 7 (100 warnings with -Xlint:all)
+- Many deprecation errors, even with Java 7 (100s of warnings with -Xlint:all)
   - Fixing would allow running on newer Java, and might also fix bugs with Java 7
+- When another car is closer to a world model (like a jump) than your camera, the other car model is consistently visible through the world model
+  - This happens in the official game too, except much less often
 
 ## Notes
 - Fixed zero-division errors in xtGraphics
@@ -47,6 +49,6 @@ Things that are wrong and different from the official Game.jar
 - Version support for this decompiled version
   - Java 6: freeze on loading stages / running the game, but no deprecations
   - Java 7: runs but doesn't work perfectly (see Bugs) and has deprecations
-  - Java 8+: doesn't work at all due to UI method changes
+  - Java 8+: freeze on loading stage soundtrack; on Ubuntu a missing audio driver will cause an exception `apt install openjdk-8-{jre,jdk,doc} libpulse-{java,jni}`
 
   - the official Game.jar is unplayably slow in Java 6, runs perfectly in Java 7, and freezes in Java 8+

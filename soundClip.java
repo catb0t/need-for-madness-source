@@ -13,7 +13,7 @@ public class soundClip
     boolean loaded;
     int lfrpo;
     int cntcheck;
-    
+
     public soundClip(final byte[] array) {
         this.clip = null;
         this.loaded = false;
@@ -29,7 +29,7 @@ public class soundClip
             this.loaded = false;
         }
     }
-    
+
     public void play() {
         if (this.loaded) {
             try {
@@ -49,7 +49,7 @@ public class soundClip
             catch (Exception ex2) {}
         }
     }
-    
+
     public void loop() {
         if (this.loaded) {
             try {
@@ -66,8 +66,8 @@ public class soundClip
             catch (Exception ex2) {}
         }
     }
-    
-    public void stop() {
+
+    public void stop_clip() {
         if (this.loaded) {
             try {
                 this.clip.stop();
@@ -76,7 +76,7 @@ public class soundClip
             catch (Exception ex) {}
         }
     }
-    
+
     public void checkopen() {
         if (this.loaded && this.clip.isOpen() && this.lfrpo != -2) {
             if (this.cntcheck == 0) {

@@ -48,6 +48,7 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionListener;
 import java.applet.Applet;
 
+@SuppressWarnings("serial")
 public class CarMaker extends Applet implements Runnable, ActionListener
 {
     Graphics2D rd;
@@ -378,6 +379,11 @@ public class CarMaker extends Applet implements Runnable, ActionListener
             if (Madness.testcar.equals("Failx12")) {
                 JOptionPane.showMessageDialog(null, "Failed to load car! Please make sure car is saved before Test Drive.", "Car Maker", 1);
                 this.thredo.stop();
+                /*try {
+                  this.thredo.join(0);
+                } catch (InterruptedException ex) {
+                  // NOTE: caught here
+                }*/
             }
             else {
                 this.carname = Madness.testcar;
@@ -400,12 +406,8 @@ public class CarMaker extends Applet implements Runnable, ActionListener
         while (!this.exwist) {
             if (this.tab != this.tabed) {
                 this.hidefields();
-                if (this.tab == 1) {
-                    this.editor.enable();
-                }
-                else {
-                    this.editor.disable();
-                }
+                this.editor.setEnabled(this.tab == 1);
+
                 if (this.tabed == 2) {
                     if (!this.breakbond) {
                         if (!this.editor.getText().equals(this.lastedo)) {
@@ -602,7 +604,7 @@ public class CarMaker extends Applet implements Runnable, ActionListener
                     this.rd.drawString("New car name :", 228, 266 + n4);
                     this.movefield(this.srch, 335, 250 + n4, 129, 22);
                     if (!this.srch.isShowing()) {
-                        this.srch.show();
+                        this.srch.setVisible(true);
                         this.srch.requestFocus();
                     }
                     this.fixtext(this.srch);
@@ -615,7 +617,7 @@ public class CarMaker extends Applet implements Runnable, ActionListener
                     this.rd.drawString("New name :", 239, 266 + n4);
                     this.movefield(this.srch, 316, 250 + n4, 129, 22);
                     if (!this.srch.isShowing()) {
-                        this.srch.show();
+                        this.srch.setVisible(true);
                         this.srch.requestFocus();
                     }
                     this.fixtext(this.srch);
@@ -696,12 +698,12 @@ public class CarMaker extends Applet implements Runnable, ActionListener
                 this.movefield(this.editor, 5, 30, 690, 400);
                 if (!this.openm) {
                     if (!this.editor.isShowing()) {
-                        this.editor.show();
+                        this.editor.setVisible(true);
                         this.editor.requestFocus();
                     }
                 }
                 else if (this.editor.isShowing()) {
-                    this.editor.hide();
+                    this.editor.setVisible(false);
                 }
                 this.rd.setFont(new Font("Arial", 1, 12));
                 if (this.prefs) {
@@ -827,7 +829,7 @@ public class CarMaker extends Applet implements Runnable, ActionListener
                     this.rd.drawString("Text to find:", 18, 500);
                     this.movefield(this.srch, 91, 484, 129, 22);
                     if (!this.srch.isShowing()) {
-                        this.srch.show();
+                        this.srch.setVisible(true);
                     }
                     boolean b = false;
                     if (!this.srch.getText().equals("")) {
@@ -837,7 +839,7 @@ public class CarMaker extends Applet implements Runnable, ActionListener
                     this.rd.drawString("Replace with:", 255, 500);
                     this.movefield(this.rplc, 338, 484, 129, 22);
                     if (!this.rplc.isShowing()) {
-                        this.rplc.show();
+                        this.rplc.setVisible(true);
                     }
                     boolean b2 = false;
                     if (!this.srch.getText().equals("") && !this.rplc.getText().equals("")) {
@@ -847,10 +849,10 @@ public class CarMaker extends Applet implements Runnable, ActionListener
                 }
                 else {
                     if (this.srch.isShowing()) {
-                        this.srch.hide();
+                        this.srch.setVisible(false);
                     }
                     if (this.rplc.isShowing()) {
-                        this.rplc.hide();
+                        this.rplc.setVisible(false);
                     }
                     this.rd.setColor(new Color(170, 170, 170));
                     this.rd.drawRect(5, 474, 450, 70);
@@ -1055,7 +1057,7 @@ public class CarMaker extends Applet implements Runnable, ActionListener
                             this.focuson = false;
                         }
                         if (!this.srch.isShowing()) {
-                            this.srch.show();
+                            this.srch.setVisible(true);
                         }
                         for (int n23 = 0; n23 < 200; ++n23) {
                             this.rd.setColor(Color.getHSBColor((float)(n23 * 0.005), 1.0f, 1.0f));
@@ -1116,7 +1118,7 @@ public class CarMaker extends Applet implements Runnable, ActionListener
                             this.focuson = false;
                         }
                         if (!this.rplc.isShowing()) {
-                            this.rplc.show();
+                            this.rplc.setVisible(true);
                         }
                         for (int n27 = 0; n27 < 200; ++n27) {
                             this.rd.setColor(Color.getHSBColor((float)(n27 * 0.005), 1.0f, 1.0f));
@@ -1570,20 +1572,20 @@ public class CarMaker extends Applet implements Runnable, ActionListener
                             this.focuson = false;
                         }
                         if (!this.wv[n46].isShowing()) {
-                            this.wv[n46].show();
+                            this.wv[n46].setVisible(true);
                         }
                     }
                     if (this.srch.hasFocus()) {
                         this.focuson = false;
                     }
                     if (!this.srch.isShowing()) {
-                        this.srch.show();
+                        this.srch.setVisible(true);
                     }
                     if (this.rplc.hasFocus()) {
                         this.focuson = false;
                     }
                     if (!this.rplc.isShowing()) {
-                        this.rplc.show();
+                        this.rplc.setVisible(true);
                     }
                     if (!this.focuson) {
                         if (!this.aplyd1 && !this.aply1.equals("" + this.wv[0].getText() + "" + this.wv[1].getText() + "" + this.wv[2].getText() + "" + this.wv[3].getText() + "" + this.wv[4].getText() + "" + this.srch.getText() + "" + this.wv[5].getText() + "" + this.wv[6].getText() + "" + this.wv[7].getText() + "")) {
@@ -2054,7 +2056,7 @@ public class CarMaker extends Applet implements Runnable, ActionListener
                             this.engsel = this.engine.getSelectedIndex();
                             for (int n92 = 0; n92 < 5; ++n92) {
                                 for (int n93 = 0; n93 < 5; ++n93) {
-                                    this.engs[n93][n92].stop();
+                                    this.engs[n93][n92].stop_clip();
                                     this.engs[n93][n92].checkopen();
                                 }
                             }
@@ -2532,12 +2534,12 @@ public class CarMaker extends Applet implements Runnable, ActionListener
                     this.rd.drawString("Nickname:", 326 - this.ftm.stringWidth("Nickname:") - 14, 266);
                     this.movefield(this.tnick, 326, 250, 129, 22);
                     if (!this.tnick.isShowing()) {
-                        this.tnick.show();
+                        this.tnick.setVisible(true);
                     }
                     this.rd.drawString("Password:", 326 - this.ftm.stringWidth("Password:") - 14, 296);
                     this.movefield(this.tpass, 326, 280, 129, 22);
                     if (!this.tpass.isShowing()) {
-                        this.tpass.show();
+                        this.tpass.setVisible(true);
                     }
                     this.stringbutton("       Login       ", 350, 340, 0, true);
                     this.rd.setFont(new Font("Arial", 1, 13));
@@ -4056,7 +4058,7 @@ public class CarMaker extends Applet implements Runnable, ActionListener
                         if (n == n70) {
                             for (int n71 = 0; n71 < 5; ++n71) {
                                 for (int n72 = 0; n72 < 5; ++n72) {
-                                    this.engs[n72][n71].stop();
+                                    this.engs[n72][n71].stop_clip();
                                 }
                             }
                             this.engs[this.engsel][n70].loop();
@@ -4065,7 +4067,7 @@ public class CarMaker extends Applet implements Runnable, ActionListener
                         if (n == 5) {
                             for (int n73 = 0; n73 < 5; ++n73) {
                                 for (int n74 = 0; n74 < 5; ++n74) {
-                                    this.engs[n74][n73].stop();
+                                    this.engs[n74][n73].stop_clip();
                                 }
                             }
                             this.engon = false;

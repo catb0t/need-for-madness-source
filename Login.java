@@ -99,7 +99,7 @@ public class Login implements Runnable
     int oym;
     int lxm;
     int lym;
-    
+
     public Login(final Medium m, final Graphics2D rd, final xtGraphics xt, final GameSparker gs) {
         this.nmsgs = 0;
         this.nconf = 0;
@@ -177,22 +177,22 @@ public class Login implements Runnable
             this.nservers = 1;
         }
     }
-    
+
     public void inishmulti() {
-        this.gs.tnick.hide();
-        this.gs.tnick.enable();
+        this.gs.tnick.setVisible(false);
+        this.gs.tnick.setEnabled(true);
         this.gs.tnick.setForeground(new Color(0, 0, 0));
         this.gs.tnick.setBackground(this.color2k(240, 240, 240));
-        this.gs.tpass.hide();
-        this.gs.tpass.enable();
+        this.gs.tpass.setVisible(false);
+        this.gs.tpass.setEnabled(true);
         this.gs.tpass.setForeground(new Color(0, 0, 0));
         this.gs.tpass.setBackground(this.color2k(240, 240, 240));
-        this.gs.temail.hide();
-        this.gs.temail.enable();
+        this.gs.temail.setVisible(false);
+        this.gs.temail.setEnabled(true);
         this.gs.temail.setForeground(new Color(0, 0, 0));
         this.gs.temail.setBackground(this.color2k(240, 240, 240));
-        this.gs.keplo.hide();
-        this.gs.keplo.enable();
+        this.gs.keplo.setVisible(false);
+        this.gs.keplo.setEnabled(true);
         this.gs.keplo.setForeground(new Color(0, 0, 0));
         this.gs.keplo.setBackground(new Color(193, 181, 142));
         this.gs.requestFocus();
@@ -237,7 +237,7 @@ public class Login implements Runnable
             this.fase = 3;
         }
     }
-    
+
     public void exitfromlobby() {
         if (!this.xt.lan) {
             this.opselect = 0;
@@ -277,7 +277,7 @@ public class Login implements Runnable
         System.gc();
         (this.connector = new Thread(this)).start();
     }
-    
+
     public void endcons() {
         for (int i = 0; i < this.nservers; ++i) {
             try {
@@ -296,7 +296,7 @@ public class Login implements Runnable
         }
         catch (Exception ex2) {}
     }
-    
+
     public void checknotifcations() {
         int nmsgs = 0;
         int fclan = 0;
@@ -365,7 +365,7 @@ public class Login implements Runnable
         this.clanapv = svalue;
         this.ncreq = ncreq;
     }
-    
+
     public void gamealert() {
         try {
             this.socket = new Socket(this.servers[0], 7061);
@@ -378,7 +378,7 @@ public class Login implements Runnable
         }
         catch (Exception ex) {}
     }
-    
+
     public void checkgamealerts() {
         try {
             this.socket = new Socket(this.servers[0], 7061);
@@ -416,7 +416,7 @@ public class Login implements Runnable
         }
         catch (Exception ex) {}
     }
-    
+
     @Override
     public void run() {
         if (this.checknote) {
@@ -445,7 +445,7 @@ public class Login implements Runnable
                 this.dout.close();
             }
             catch (Exception ex) {}
-            this.gs.tnick.enable();
+            this.gs.tnick.setEnabled(true);
             if (getvalue == -1) {
                 this.msg = "Unable to connect to any server at this moment.  Please try again later.";
                 this.fase = 1;
@@ -455,10 +455,10 @@ public class Login implements Runnable
                 if (getvalue2 != -1) {
                     this.xt.nfreeplays = getvalue2;
                 }
-                this.gs.tnick.hide();
-                this.gs.tpass.hide();
-                this.gs.temail.hide();
-                this.gs.keplo.hide();
+                this.gs.tnick.setVisible(false);
+                this.gs.tpass.setVisible(false);
+                this.gs.temail.setVisible(false);
+                this.gs.keplo.setVisible(false);
                 this.gs.requestFocus();
                 this.xt.logged = false;
                 this.fase = 12;
@@ -512,9 +512,9 @@ public class Login implements Runnable
                 this.dout.close();
             }
             catch (Exception ex2) {}
-            this.gs.tnick.enable();
-            this.gs.tpass.enable();
-            this.gs.keplo.enable();
+            this.gs.tnick.setEnabled(true);
+            this.gs.tpass.setEnabled(true);
+            this.gs.keplo.setEnabled(true);
             if (getvalue3 == -1) {
                 this.msg = "Unable to connect to server at this moment.  Please try again later.";
                 this.fase = 3;
@@ -522,10 +522,10 @@ public class Login implements Runnable
             if (getvalue3 == 0 || getvalue3 == 3 || getvalue3 > 10 || getvalue3 == -167 || getvalue3 == 111) {
                 this.xt.nickname = this.gs.tnick.getText();
                 this.showtf = false;
-                this.gs.tnick.hide();
-                this.gs.tpass.hide();
-                this.gs.temail.hide();
-                this.gs.keplo.hide();
+                this.gs.tnick.setVisible(false);
+                this.gs.tpass.setVisible(false);
+                this.gs.temail.setVisible(false);
+                this.gs.keplo.setVisible(false);
                 this.gs.requestFocus();
                 this.gs.setloggedcookie();
                 this.btroom = false;
@@ -586,14 +586,14 @@ public class Login implements Runnable
                 this.dout.close();
             }
             catch (Exception ex3) {}
-            this.gs.temail.enable();
+            this.gs.temail.setEnabled(true);
             if (getvalue5 == -1) {
                 this.msg = "Unable to connect to server at this moment.  Please try again later.";
                 this.fase = 7;
             }
             if (getvalue5 == 0) {
                 this.showtf = false;
-                this.gs.temail.hide();
+                this.gs.temail.setVisible(false);
                 this.msg = "Please check your Email: " + this.gs.temail.getText() + " to login.";
                 this.gs.temail.setText("");
                 this.gs.tnick.setText("");
@@ -796,15 +796,21 @@ public class Login implements Runnable
             }
         }
     }
-    
+
     public void stopallnow() {
         if (this.connector != null) {
-            this.connector.stop();
+          this.connector.stop();
+          this.connector = null;
+          /*try {
+            this.connector.join(0);
             this.connector = null;
+          } catch (InterruptedException ex) {
+            // NOTE: caught here
+          }*/
         }
         this.endcons();
     }
-    
+
     public void multimode(final ContO[] array) {
         this.btn = 0;
         this.xt.mainbg(4);
@@ -916,8 +922,15 @@ public class Login implements Runnable
             final int srvtrn = this.srvtrn;
             if (srvtrn < this.nservers && this.serverdone[srvtrn] != -1 && new Date().getTime() - this.servestart[srvtrn] > 1500L) {
                 if (this.connector != null) {
-                    this.connector.stop();
+                  this.connector.stop();
+                  this.connector = null;
+
+                  /*try {
+                    this.connector.join(0);
                     this.connector = null;
+                  } catch (InterruptedException ex) {
+                    // NOTE: caught here
+                  }*/
                 }
                 this.xt.delays[srvtrn] = 600;
                 this.serverdone[srvtrn] = 5;
@@ -1301,8 +1314,15 @@ public class Login implements Runnable
         if (this.resofaso) {
             this.resofaso = false;
             if (this.connector != null) {
-                this.connector.stop();
+              this.connector.stop();
+              this.connector = null;
+
+              /*try {
+                this.connector.join(0);
                 this.connector = null;
+              } catch (InterruptedException ex) {
+                // NOTE: caught here
+              }*/
             }
             this.socketson = false;
             this.msg = "| Connecting to Servers |";
@@ -1310,7 +1330,7 @@ public class Login implements Runnable
             (this.connector = new Thread(this)).start();
         }
     }
-    
+
     public void multistart(final ContO[] array, final int oxm, final int oym, final boolean b) {
         this.btn = 0;
         this.xt.mainbg(4);
@@ -1448,7 +1468,7 @@ public class Login implements Runnable
                 this.pessd[2] = true;
             }
             if (this.fase == 1 && !this.gs.tnick.isShowing()) {
-                this.gs.tnick.show();
+                this.gs.tnick.setVisible(true);
                 this.gs.tnick.requestFocus();
                 if (this.gs.tnick.getText().equals("Nickname")) {
                     this.gs.tnick.select(8, 8);
@@ -1534,13 +1554,13 @@ public class Login implements Runnable
                 this.showtf = true;
                 if (!this.gs.applejava) {
                     if (!this.gs.tpass.isShowing()) {
-                        this.gs.tpass.show();
+                        this.gs.tpass.setVisible(true);
                         if (!this.gs.tnick.getText().equals("")) {
                             this.gs.tpass.requestFocus();
                         }
                     }
                     if (!this.gs.tnick.isShowing()) {
-                        this.gs.tnick.show();
+                        this.gs.tnick.setVisible(true);
                         if (this.gs.tnick.getText().equals("")) {
                             this.gs.tnick.requestFocus();
                         }
@@ -1585,7 +1605,7 @@ public class Login implements Runnable
                 this.lpass = this.gs.tpass.getText();
             }
             if (this.fase == 3 && ((!this.gs.tpass.getText().equals("") && !this.gs.tnick.getText().equals("")) || !this.gs.applejava) && !this.gs.keplo.isShowing()) {
-                this.gs.keplo.show();
+                this.gs.keplo.setVisible(true);
             }
             this.gs.movefield(this.gs.keplo, 376, 275, 129, 23);
         }
@@ -1602,7 +1622,7 @@ public class Login implements Runnable
                 this.lnick = this.gs.tnick.getText();
             }
             if (!this.gs.tnick.isShowing()) {
-                this.gs.tnick.show();
+                this.gs.tnick.setVisible(true);
             }
             this.drawbutton(this.xt.register, 400, 325);
             this.drawbutton(this.xt.cancel, 400, 375);
@@ -1641,7 +1661,7 @@ public class Login implements Runnable
             if (this.fase == 7) {
                 this.showtf = true;
                 if (!this.gs.applejava && !this.gs.temail.isShowing()) {
-                    this.gs.temail.show();
+                    this.gs.temail.setVisible(true);
                     this.gs.temail.requestFocus();
                 }
             }
@@ -1660,7 +1680,7 @@ public class Login implements Runnable
             }
         }
     }
-    
+
     public void ctachm(final int lxm, final int lym, final int n, final Control control, final Lobby lobby) {
         int n2 = -1;
         if (this.fase != 2 && this.fase != 4 && this.fase != 6 && this.fase != 8 && this.fase != 9) {
@@ -1681,18 +1701,18 @@ public class Login implements Runnable
             }
         }
         if (n2 == 0) {
-            this.gs.tnick.hide();
-            this.gs.tpass.hide();
-            this.gs.keplo.hide();
-            this.gs.temail.hide();
+            this.gs.tnick.setVisible(false);
+            this.gs.tpass.setVisible(false);
+            this.gs.keplo.setVisible(false);
+            this.gs.temail.setVisible(false);
             this.gs.requestFocus();
             this.xt.fase = 24;
         }
         if (n2 == 1 && this.fase != 5) {
-            this.gs.tnick.hide();
-            this.gs.tpass.hide();
-            this.gs.keplo.hide();
-            this.gs.temail.hide();
+            this.gs.tnick.setVisible(false);
+            this.gs.tpass.setVisible(false);
+            this.gs.keplo.setVisible(false);
+            this.gs.temail.setVisible(false);
             this.gs.requestFocus();
             this.xt.fase = 23;
         }
@@ -1848,8 +1868,15 @@ public class Login implements Runnable
                 }
                 if (this.fase == 16 || this.fase == 17) {
                     if (this.connector != null) {
-                        this.connector.stop();
+                      this.connector.stop();
+                      this.connector = null;
+
+                      /*try {
+                        this.connector.join(0);
                         this.connector = null;
+                      } catch (InterruptedException ex) {
+                        // NOTE: caught here
+                      }*/
                     }
                     try {
                         this.socket.close();
@@ -1865,8 +1892,15 @@ public class Login implements Runnable
                 }
                 if (this.fase == 14) {
                     if (this.connector != null) {
-                        this.connector.stop();
+                      this.connector.stop();
+                      this.connector = null;
+                      
+                      /*try {
+                        this.connector.join(0);
                         this.connector = null;
+                      } catch (InterruptedException ex) {
+                        // NOTE: caught here
+                      }*/
                     }
                     for (int j = 0; j < this.nservers; ++j) {
                         try {
@@ -1989,9 +2023,9 @@ public class Login implements Runnable
                 this.msg = "Please enter your Email Address to recover your account details.";
                 this.gs.tnick.setForeground(new Color(0, 0, 0));
                 this.gs.tpass.setForeground(new Color(0, 0, 0));
-                this.gs.tnick.hide();
-                this.gs.tpass.hide();
-                this.gs.keplo.hide();
+                this.gs.tnick.setVisible(false);
+                this.gs.tpass.setVisible(false);
+                this.gs.keplo.setVisible(false);
                 this.onf = false;
                 this.gs.setCursor(new Cursor(0));
                 this.fase = 7;
@@ -2024,7 +2058,7 @@ public class Login implements Runnable
                 }
                 else {
                     this.msg = "| Checking Nickname |";
-                    this.gs.tnick.disable();
+                    this.gs.tnick.setEnabled(false);
                     this.fase = 2;
                     (this.connector = new Thread(this)).start();
                 }
@@ -2067,9 +2101,9 @@ public class Login implements Runnable
                 }
                 else {
                     this.msg = "| Logging In |";
-                    this.gs.tnick.disable();
-                    this.gs.tpass.disable();
-                    this.gs.keplo.disable();
+                    this.gs.tnick.setEnabled(false);
+                    this.gs.tpass.setEnabled(false);
+                    this.gs.keplo.setEnabled(false);
                     this.fase = 4;
                     (this.connector = new Thread(this)).start();
                 }
@@ -2090,7 +2124,7 @@ public class Login implements Runnable
             if (n2 == 2) {
                 this.fase = this.lrgfase;
                 if (this.fase == 12) {
-                    this.gs.tnick.hide();
+                    this.gs.tnick.setVisible(false);
                     (this.connector = new Thread(this)).start();
                 }
             }
@@ -2132,7 +2166,7 @@ public class Login implements Runnable
                 }
                 if (this.nflk == 0) {
                     this.msg = "| Checking Email |";
-                    this.gs.temail.disable();
+                    this.gs.temail.setEnabled(false);
                     this.fase = 8;
                     (this.connector = new Thread(this)).start();
                 }
@@ -2148,7 +2182,7 @@ public class Login implements Runnable
         control.enter = false;
         control.exit = false;
     }
-    
+
     public void drawSbutton(final Image image, final int n, final int n2) {
         this.bx[this.btn] = n;
         this.by[this.btn] = n2;
@@ -2169,7 +2203,7 @@ public class Login implements Runnable
         }
         ++this.btn;
     }
-    
+
     public void drawbutton(final Image image, final int n, final int n2) {
         this.bx[this.btn] = n;
         this.by[this.btn] = n2;
@@ -2190,7 +2224,7 @@ public class Login implements Runnable
         }
         ++this.btn;
     }
-    
+
     public void stringbutton(final String s, final int n, final int n2, final int n3) {
         this.rd.setFont(new Font("Arial", 1, 12));
         this.ftm = this.rd.getFontMetrics();
@@ -2239,7 +2273,7 @@ public class Login implements Runnable
         }
         ++this.btn;
     }
-    
+
     public Color color2k(final int n, final int n2, final int n3) {
         final Color color = new Color(n, n2, n3);
         final float[] array = new float[3];
@@ -2248,7 +2282,7 @@ public class Login implements Runnable
         array[1] = 0.35f;
         return Color.getHSBColor(array[0], array[1], array[2]);
     }
-    
+
     public void fixtext(final TextField textField) {
         final String replace = textField.getText().replace('\"', '#');
         final String s = "\\";
@@ -2270,7 +2304,7 @@ public class Login implements Runnable
             textField.select(n, n);
         }
     }
-    
+
     public int getvalue(final String s, final int n) {
         int intValue = -1;
         try {
@@ -2300,7 +2334,7 @@ public class Login implements Runnable
         catch (Exception ex) {}
         return intValue;
     }
-    
+
     public String getSvalue(final String s, final int n) {
         String s2 = "";
         try {
